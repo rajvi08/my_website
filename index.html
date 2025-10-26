@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rajvi's Project Intro (Image Tiles)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    /* Fill viewport, enable scrolling for grid */
+    html, body {
+      margin: 0; padding: 0;
+      width: 100%; min-height: 100vh;
+      font-family: 'Nunito', sans-serif;
+      background: white;
+      overflow-x: hidden;
+    }
+
+
+    /* Header with three sections */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 20px 40px;
+      z-index: 1000;
+      background: #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-left {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.2em;
+      font-weight: 500;
+      color: white;
+    }
+
+    .header-center {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.2em;
+      font-weight: 500;
+      color: white;
+      text-align: center;
+    }
+
+    .header-right {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.2em;
+      font-weight: 500;
+      color: white;
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: white;
+    }
+
+    /* Main content container */
+    .main-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 40px 40px;
+      box-sizing: border-box;
+    }
+
+    /* Container for grid layout */
+    .grid-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 0;
+      box-sizing: border-box;
+    }
+
+    /* Introductory paragraph */
+    .intro-section {
+      margin-bottom: 60px;
+      text-align: center;
+    }
+
+    .intro-section h2 {
+      font-family: 'Roboto', sans-serif;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .intro-section p {
+      font-size: 1.2em;
+      line-height: 1.6;
+      color: #888;
+      max-width: 800px;
+      margin: 0 auto;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 40px;
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .project-wrapper {
+      position: relative;
+      display: block;
+    }
+
+    .project-tile {
+      width: 100%; 
+      aspect-ratio: 1;
+      background-size: cover;
+      background-position: center;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+    .project-wrapper:hover .project-tile {
+      transform: scale(1.05);
+      filter: none;
+    }
+
+    /* Frosted glass overlay */
+    .frost-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(3px);
+      -webkit-backdrop-filter: blur(3px);
+      border-radius: 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .project-wrapper:hover .frost-overlay {
+      opacity: 0;
+    }
+
+    /* Text overlay */
+    .tile-overlay {
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 100%;
+      background: rgba(0,0,0,0.7);
+      padding: 12px;
+      box-sizing: border-box;
+      border-radius: 0 0 12px 12px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      color: white;
+      z-index: 2;
+    }
+    .project-wrapper:hover .tile-overlay {
+      opacity: 1;
+    }
+
+    .tile-overlay h4 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: bold;
+      font-family: 'Roboto', sans-serif;
+    }
+    .tile-overlay p {
+      margin: 4px 0 0;
+      font-size: 14px;
+      font-style: italic;
+      font-family: 'Nunito', sans-serif;
+      color: #888;
+    }
+
+    /* Following ball */
+    .follow-ball {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: radial-gradient(circle, rgba(0, 128, 128, 0.6) 0%, rgba(0, 128, 128, 0.2) 70%, transparent 100%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: transform 0.1s ease-out;
+      mix-blend-mode: multiply;
+      box-shadow: 0 0 15px rgba(0, 128, 128, 0.3);
+    }
+
+    /* Sparkle trail */
+    .sparkle {
+      position: fixed;
+      width: 3px;
+      height: 3px;
+      background: rgba(0, 128, 128, 0.6);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      animation: sparkleFade 1s ease-out forwards;
+    }
+
+    @keyframes sparkleFade {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+    }
+
+    /* Responsive design for smaller screens */
+    @media (max-width: 1200px) {
+      .project-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+      }
+      .main-content {
+        padding: 80px 20px 40px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .project-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .main-content {
+        padding: 80px 15px 40px;
+      }
+      .header {
+        padding: 15px 20px;
+        flex-direction: column;
+        gap: 5px;
+      }
+      .header-left,
+      .header-center,
+      .header-right {
+        font-size: 1em;
+      }
+      .header::after {
+        left: 0;
+        right: 0;
+      }
+      .intro-section h2 {
+        font-size: 2em;
+      }
+      .intro-section p {
+        font-size: 1.1em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Following ball -->
+  <div class="follow-ball" id="followBall"></div>
+
+  <!-- Header with three sections -->
+  <div class="header">
+    <div class="header-left">Rajvi Ranjit Patil</div>
+    <div class="header-center">Design Technologist</div>
+    <div class="header-right">Architect</div>
+  </div>
+
+  <!-- Main content -->
+  <div class="main-content">
+    <!-- Introductory section -->
+    <div class="intro-section">
+      <h2>Hello! I am Rajvi</h2>
+      <p>This collection of projects traces my explorations across disciplines, a process of experimentation, discovery, and crafting meaningful objects and experiences.</p>
+    </div>
+
+    <!-- Project grid -->
+    <div class="grid-container">
+      <div class="project-grid">
+
+      <!-- ABOUT -->
+      <div class="project-wrapper">
+        <a href="about.html" class="project-tile"
+           style="background-image: url('photos_about/img_3.jpeg');"></a>
+        <div class="frost-overlay"></div>
+        <div class="tile-overlay">
+          <h4>About</h4><p>Rajvi</p>
+        </div>
+      </div>
+
+      <!-- TEXTURE -->
+      <div class="project-wrapper">
+        <a href="texture.html" class="project-tile"
+           style="background-image: url('photos-texture/project1_img2.jpg');"></a>
+        <div class="frost-overlay"></div>
+        <div class="tile-overlay">
+          <h4>Texture</h4><p>Large Language Object</p>
+        </div>
+      </div>
+
+        <!-- ABBstract -->
+        <div class="project-wrapper">
+          <a href="robotics.html" class="project-tile"
+             style="background-image: url('photos_robotics/photo_3.jpg');"></a>
+          <div class="frost-overlay"></div>
+          <div class="tile-overlay">
+            <h4>ABBstract</h4><p>Cooperative Robotics</p>
+          </div>
+        </div>
+
+      <!-- HORIZON -->
+      <div class="project-wrapper">
+        <a href="horizon.html" class="project-tile"
+           style="background-image: url('photos_horizon/project3_img5.jpg');"></a>
+        <div class="frost-overlay"></div>
+        <div class="tile-overlay">
+          <h4>Horizon</h4><p>Telepresence Device</p>
+        </div>
+      </div>
+
+      <!-- BIOMIMICRY -->
+      <div class="project-wrapper">
+        <a href="biomimicry.html" class="project-tile"
+           style="background-image: url('photos_biomimicry/project1_img1.jpg');"></a>
+        <div class="frost-overlay"></div>
+        <div class="tile-overlay">
+          <h4>Making Across Disciplines</h4><p>Biomimicry</p>
+        </div>
+      </div>
+
+      <!-- TICKLISH -->
+      <div class="project-wrapper">
+        <a href="haptic.html" class="project-tile"
+           style="background-image: url('photos_haptic/project2_img2.jpg');"></a>
+        <div class="frost-overlay"></div>
+        <div class="tile-overlay">
+          <h4>Ticklish</h4><p>Haptic Device</p>
+        </div>
+      </div>
+
+      <!-- DIGITAL TOOLS -->
+      <div class="project-wrapper">
+        <a href="digital-tool.html" class="project-tile"
+           style="background-image: url('photos_digital-tool/project2_img2.png');"></a>
+        <div class="frost-overlay"></div>
+        <div class="tile-overlay">
+          <h4>Digital Tools</h4><p>3D Modelling</p>
+        </div>
+      </div>
+
+      <!-- INFLUX -->
+      <div class="project-wrapper">
+        <a href="auxeticfacade.html" class="project-tile"
+           style="background-image: url('photos_auxeticfacade/project2_img1.jpg');"></a>
+        <div class="frost-overlay"></div>
+        <div class="tile-overlay">
+          <h4>Influx</h4><p>Transformable Façade</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  </div>
+
+  <script>
+    // Following ball functionality with sparkles
+    const ball = document.getElementById('followBall');
+    let mouseX = 0;
+    let mouseY = 0;
+    let ballX = 0;
+    let ballY = 0;
+    let speed = 0.1;
+    let lastBallX = 0;
+    let lastBallY = 0;
+    let sparkleCounter = 0;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function createSparkle(x, y) {
+      const sparkle = document.createElement('div');
+      sparkle.className = 'sparkle';
+      sparkle.style.left = x + 'px';
+      sparkle.style.top = y + 'px';
+      document.body.appendChild(sparkle);
+      
+      setTimeout(() => {
+        if (sparkle.parentNode) {
+          sparkle.parentNode.removeChild(sparkle);
+        }
+      }, 1000);
+    }
+
+    function animate() {
+      lastBallX = ballX;
+      lastBallY = ballY;
+      
+      ballX += (mouseX - ballX) * speed;
+      ballY += (mouseY - ballY) * speed;
+      
+      ball.style.left = ballX - 6 + 'px';
+      ball.style.top = ballY - 6 + 'px';
+      
+      // Create sparkles occasionally
+      sparkleCounter++;
+      if (sparkleCounter % 3 === 0 && (Math.abs(ballX - lastBallX) > 2 || Math.abs(ballY - lastBallY) > 2)) {
+        const offsetX = (Math.random() - 0.5) * 20;
+        const offsetY = (Math.random() - 0.5) * 20;
+        createSparkle(ballX + offsetX, ballY + offsetY);
+      }
+      
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  </script>
+
+</body>
+</html>
+

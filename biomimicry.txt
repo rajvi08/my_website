@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Biomimicry Project</title>
+  <style>
+    body {
+      background-color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .text-block {
+      font-size: 1.2em;
+      line-height: 1.6em;
+      text-align: justify;
+      margin: 30px auto;
+      width: 95%;
+      max-width: 950px;
+    }
+
+    .media-container {
+      width: 95%;
+      max-width: 950px;
+      margin: 0 auto;
+    }
+
+    .media-container img,
+    .media-container video {
+      width: 100%;
+      display: block;
+      margin-bottom: 25px;
+      object-fit: contain;
+    }
+
+    .very-small {
+      width: 25%;
+      display: block;
+      margin: 0 auto 25px auto;
+    }
+
+    .triple-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 2%;
+      margin-bottom: 25px;
+    }
+
+    .triple-row img {
+      width: 32%;
+      object-fit: contain;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Biomimicry Project</h1>
+
+  <div class="container">
+
+    <div class="text-block">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae.</p>
+      <p>Phasellus blandit massa enim. Nullam id varius nunc id varius nunc.</p>
+    </div>
+
+    <div class="media-container">
+      <img src="photos_biomimicry/project1_img1.jpg" alt="Biomimicry Image 1">
+
+      <img class="very-small" src="photos_biomimicry/project1_img2.png" alt="Biomimicry Image 2">
+
+      <img src="photos_biomimicry/project1_img3.jpg" alt="Biomimicry Image 3">
+
+      <img src="photos_biomimicry/project1_img4.png" alt="Biomimicry Image 4">
+
+      <div class="triple-row">
+        <img src="photos_biomimicry/project1_img5.jpg" alt="Biomimicry Image 5">
+        <img src="photos_biomimicry/project1_img6.png" alt="Biomimicry Image 6">
+        <img src="photos_biomimicry/project1_img7.png" alt="Biomimicry Image 7">
+      </div>
+
+      <div class="text-block">
+        <p>Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci.</p>
+      </div>
+
+      <video controls>
+        <source src="photos_biomimicry/project1_video1.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+  </div>
+
+</body>
+</html>
+

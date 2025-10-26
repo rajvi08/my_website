@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Digital Tools</title>
+  <style>
+    body {
+      background-color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      font-size: 3em;
+      margin-top: 40px;
+      text-align: center;
+    }
+    h2 {
+      font-size: 2em;
+      margin-top: 30px;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .text-block {
+      font-size: 1.2em;
+      line-height: 1.6em;
+      text-align: justify;
+      margin: 20px 0;
+    }
+    .media-container img {
+      width: 100%;
+      display: block;
+      margin: 20px 0;
+      object-fit: contain;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Digital Tools</h1>
+
+  <div class="container">
+
+    <h2>Organize It!</h2>
+    <div class="text-block">
+      <p>As apartments and homes get smaller and more expensive, people need affordable, customizable spaces. This solution provides a DIY design tool that simplifies closet customization, maximizes space, and fits users' budgets. <strong>Organize It!</strong> is a tool in the form of a set of Grasshopper plug-ins that lets users design custom closets.</p>
+    </div>
+    <div class="media-container">
+      <img src="photos_digitaltool/project1_img1.png" alt="Organize It! Screenshot">
+    </div>
+
+    <h2>InBetween</h2>
+    <div class="text-block">
+      <p>This project draws inspiration from “Browsing the Latent Space: A New Approach to Interactive Design Exploration for Volumetric Generative Systems.” Aim: To create a tool that will help the user visualize the latent space to generate a wide range of design iterations as part of the initial conceptual phase.</p>
+    </div>
+    <div class="media-container">
+      <img src="photos_digitaltool/project2_img1.png" alt="InBetween Visualization">
+    </div>
+
+  </div>
+
+</body>
+</html>
+

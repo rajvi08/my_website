@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About - Rajvi Ranjit Patil</title>
+  <style>
+    body {
+      background-color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    canvas {
+      display: block;
+      margin: 0 auto;
+      margin-top: 10px;
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-top: 40px;
+      text-align: center;
+    }
+
+    h3 {
+      text-align: center;
+      font-weight: normal;
+      margin-top: -20px;
+    }
+
+    .cv-link {
+      text-align: center;
+      margin-top: 5px;
+    }
+
+    .cv-link a {
+      color: blue;
+      text-decoration: underline;
+      font-size: 1.1em;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .text-block {
+      font-size: 1.2em;
+      line-height: 1.6em;
+      text-align: justify;
+      margin: 30px auto;
+      width: 95%;
+      max-width: 950px;
+    }
+
+    .media-container {
+      width: 95%;
+      max-width: 950px;
+      margin: 0 auto;
+    }
+
+    .media-container img,
+    .media-container video {
+      width: 100%;
+      display: block;
+      margin-bottom: 25px;
+    }
+
+    .side-by-side {
+      display: flex;
+      justify-content: space-between;
+      gap: 2%;
+      margin-bottom: 25px;
+    }
+
+    .side-by-side img {
+      width: 24%;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="bubbleCanvas"></canvas>
+
+<h1>Rajvi Ranjit Patil</h1>
+<h3>Architect & Design Technologist</h3>
+<div class="cv-link">
+  <a href="cv.html">CV</a>
+</div>
+
+<div class="container">
+  <div class="text-block">
+    <p>I am an interdisciplinary designer, maker and technologist, deeply rooted in the craft of physicalizing ideas. I specialize in translating abstract concepts into tangible forms. My work spans across scales, from devices to transformable architectural systems.</p>
+  </div>
+
+  <div class="media-container side-by-side">
+    <img src="photos_about/gif_1.gif" alt="GIF 1">
+    <img src="photos_about/gif_2.gif" alt="GIF 2">
+    <img src="photos_about/gif_3.gif" alt="GIF 3">
+    <img src="photos_about/gif_4.gif" alt="GIF 4">
+  </div>
+
+  <div class="text-block">
+    <p>The design process involves trying out things, testing, and improving, which starts with raw prototypes and evolves.</p>
+  </div>
+
+  <div class="media-container">
+    <img src="photos_about/img_1.png" alt="Image 1">
+  </div>
+
+  <div class="text-block">
+    <p>There is joy in making, building, and creating, satisfaction in transforming ideas into physical & tangible forms. To bring these ideas into reality, where people can use and interact with them, is the challenge I aspire to pursue. </p>
+  </div>
+
+  <div class="media-container">
+    <img src="photos_about/img_2.png" alt="Image 2">
+  </div>
+</div>
+
+<script>
+  const canvas = document.getElementById('bubbleCanvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = 400;
+
+  const bubbles = [];
+
+  class Bubble {
+    constructor(x, y, r) {
+      this.x = x;
+      this.y = y;
+      this.r = r;
+      this.vx = 0;
+      this.vy = 0;
+      this.originX = x;
+      this.originY = y;
+    }
+
+    update(mouseX, mouseY) {
+      let dx = this.x - mouseX;
+      let dy = this.y - mouseY;
+      let distSq = dx * dx + dy * dy;
+      if (distSq < 10000) {
+        let force = 3 / Math.sqrt(distSq);
+        this.vx += dx * force;
+        this.vy += dy * force;
+      }
+      let dxHome = this.originX - this.x;
+      let dyHome = this.originY - this.y;
+      this.vx += dxHome * 0.05;
+      this.vy += dyHome * 0.05;
+      this.vx *= 0.9;
+      this.vy *= 0.9;
+      this.x += this.vx;
+      this.y += this.vy;
+    }
+
+    draw(ctx) {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+      ctx.strokeStyle = '#000';
+      ctx.lineWidth = 0.5;
+      ctx.stroke();
+    }
+  }
+
+  function initBubbles() {
+    const spacing = 25;
+    const radius = 8;
+    const cols = Math.floor(canvas.width / spacing);
+    const rows = Math.floor(canvas.height / spacing);
+
+    for (let i = 0; i < cols; i++) {
+      for (let j = 0; j < rows; j++) {
+        let x = i * spacing + spacing / 2;
+        let y = j * spacing + spacing / 2;
+        bubbles.push(new Bubble(x, y, radius));
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let bubble of bubbles) {
+      bubble.update(mouseX, mouseY);
+      bubble.draw(ctx);
+    }
+    requestAnimationFrame(animate);
+  }
+
+  let mouseX = -999;
+  let mouseY = -999;
+
+  canvas.addEventListener('mousemove', function (e) {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  });
+
+  canvas.addEventListener('mouseleave', function () {
+    mouseX = -999;
+    mouseY = -999;
+  });
+
+  initBubbles();
+  animate();
+</script>
+
+</body>
+</html>
