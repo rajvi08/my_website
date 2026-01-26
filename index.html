@@ -69,6 +69,7 @@
       margin: 0 auto;
       padding: 80px 40px 40px;
       box-sizing: border-box;
+      overflow-x: visible;
     }
 
     /* Container for grid layout */
@@ -78,6 +79,7 @@
       align-items: center;
       padding: 40px 0;
       box-sizing: border-box;
+      overflow-x: visible;
     }
 
     /* Introductory paragraph */
@@ -103,11 +105,83 @@
     }
 
     .project-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 850px;
+      width: 100%;
+    }
+
+    .row-container {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 40px;
-      max-width: 1000px;
+      position: relative;
+      padding: 30px 0;
+      max-width: 850px;
       width: 100%;
+      margin: 0 auto;
+    }
+
+    .row-container:first-child {
+      border-radius: 16px 16px 0 0;
+    }
+
+    .row-container:last-child {
+      border-radius: 0 0 16px 16px;
+    }
+
+    .row-container:not(:first-child):not(:last-child) {
+      border-radius: 0;
+    }
+
+    .row-container::before {
+      content: '';
+      position: absolute;
+      left: calc(50% - 50vw);
+      right: calc(50% - 50vw);
+      top: 0;
+      bottom: 0;
+      z-index: 0;
+      width: 100vw;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .row-container:first-child::before {
+      border-radius: 16px 16px 0 0;
+    }
+
+    .row-container:last-child::before {
+      border-radius: 0 0 16px 16px;
+    }
+
+    .row-container:not(:first-child):not(:last-child)::before {
+      border-radius: 0;
+    }
+
+    .row-container {
+      z-index: 1;
+    }
+
+    .row-container .project-wrapper {
+      position: relative;
+      z-index: 1;
+    }
+
+    .row-container:nth-child(1)::before {
+      background: linear-gradient(90deg, rgba(138, 43, 226, 0.05), rgba(75, 0, 130, 0.05));
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .row-container:nth-child(2)::before {
+      background: linear-gradient(90deg, rgba(0, 191, 255, 0.05), rgba(0, 128, 128, 0.05));
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    }
+
+    .row-container:nth-child(3)::before {
+      background: linear-gradient(90deg, rgba(255, 140, 0, 0.05), rgba(255, 69, 0, 0.05));
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
     }
 
     .project-wrapper {
@@ -220,7 +294,7 @@
 
     /* Responsive design for smaller screens */
     @media (max-width: 1200px) {
-      .project-grid {
+      .row-container {
         grid-template-columns: repeat(2, 1fr);
         gap: 30px;
       }
@@ -230,7 +304,7 @@
     }
 
     @media (max-width: 768px) {
-      .project-grid {
+      .row-container {
         grid-template-columns: 1fr;
         gap: 20px;
       }
@@ -284,25 +358,93 @@
     <div class="grid-container">
       <div class="project-grid">
 
-      <!-- ABOUT -->
-      <div class="project-wrapper">
-        <a href="about.html" class="project-tile"
-           style="background-image: url('photos_about/img_3.jpeg');"></a>
-        <div class="frost-overlay"></div>
-        <div class="tile-overlay">
-          <h4>About</h4><p>Rajvi</p>
+      <!-- Row 1 -->
+      <div class="row-container">
+        <!-- ABOUT -->
+        <div class="project-wrapper">
+          <a href="about.html" class="project-tile"
+             style="background-image: url('photos_about/img_3.jpeg');"></a>
+          <div class="frost-overlay"></div>
+          <div class="tile-overlay">
+            <h4>About</h4><p>Rajvi</p>
+          </div>
+        </div>
+
+        <!-- INFLUX -->
+        <div class="project-wrapper">
+          <a href="auxeticfacade.html" class="project-tile"
+             style="background-image: url('photos_auxeticfacade/project2_img1.jpg');"></a>
+          <div class="frost-overlay"></div>
+          <div class="tile-overlay">
+            <h4>Influx</h4><p>Transformable Façade</p>
+          </div>
+        </div>
+
+        <!-- MODULON -->
+        <div class="project-wrapper">
+          <a href="https://rajvi08.github.io/radical_prototype/" class="project-tile"
+             style="background-image: url('photos_radical/render1.JPG');"></a>
+          <div class="frost-overlay"></div>
+          <div class="tile-overlay">
+            <h4>Modulon</h4><p>Radical Prototypes</p>
+          </div>
         </div>
       </div>
 
-      <!-- TEXTURE -->
-      <div class="project-wrapper">
-        <a href="texture.html" class="project-tile"
-           style="background-image: url('photos-texture/project1_img2.JPG');"></a>
-        <div class="frost-overlay"></div>
-        <div class="tile-overlay">
-          <h4>Texture</h4><p>Large Language Object</p>
+      <!-- Row 2 -->
+      <div class="row-container">
+        <!-- HORIZON -->
+        <div class="project-wrapper">
+          <a href="horizon.html" class="project-tile"
+             style="background-image: url('photos_horizon/project3_img5.jpg');"></a>
+          <div class="frost-overlay"></div>
+          <div class="tile-overlay">
+            <h4>Horizon</h4><p>Telepresence Device</p>
+          </div>
+        </div>
+
+        <!-- TEXTURE -->
+        <div class="project-wrapper">
+          <a href="texture.html" class="project-tile"
+             style="background-image: url('photos-texture/project1_img2.JPG');"></a>
+          <div class="frost-overlay"></div>
+          <div class="tile-overlay">
+            <h4>Texture</h4><p>Large Language Object</p>
+          </div>
+        </div>
+
+        <!-- TICKLISH -->
+        <div class="project-wrapper">
+          <a href="haptic.html" class="project-tile"
+             style="background-image: url('photos_haptic/project2_img2.jpg');"></a>
+          <div class="frost-overlay"></div>
+          <div class="tile-overlay">
+            <h4>Ticklish</h4><p>Haptic Device</p>
+          </div>
         </div>
       </div>
+
+      <!-- Row 3 -->
+      <div class="row-container">
+        <!-- DIGITAL TOOLS -->
+        <div class="project-wrapper">
+          <a href="digital-tool.html" class="project-tile"
+             style="background-image: url('photos_digital-tool/project2_img2.png');"></a>
+          <div class="frost-overlay"></div>
+          <div class="tile-overlay">
+            <h4>Digital Tools</h4><p>3D Modeling</p>
+          </div>
+        </div>
+
+        <!-- BIOMIMICRY -->
+        <div class="project-wrapper">
+          <a href="biomimicry.html" class="project-tile"
+             style="background-image: url('photos_biomimicry/project1_img1.jpg');"></a>
+          <div class="frost-overlay"></div>
+          <div class="tile-overlay">
+            <h4>Making Across Disciplines</h4><p>Biomimicry</p>
+          </div>
+        </div>
 
         <!-- ABBstract -->
         <div class="project-wrapper">
@@ -312,55 +454,6 @@
           <div class="tile-overlay">
             <h4>ABBstract</h4><p>Cooperative Robotics</p>
           </div>
-        </div>
-
-      <!-- HORIZON -->
-      <div class="project-wrapper">
-        <a href="horizon.html" class="project-tile"
-           style="background-image: url('photos_horizon/project3_img5.jpg');"></a>
-        <div class="frost-overlay"></div>
-        <div class="tile-overlay">
-          <h4>Horizon</h4><p>Telepresence Device</p>
-        </div>
-      </div>
-
-      <!-- BIOMIMICRY -->
-      <div class="project-wrapper">
-        <a href="biomimicry.html" class="project-tile"
-           style="background-image: url('photos_biomimicry/project1_img1.jpg');"></a>
-        <div class="frost-overlay"></div>
-        <div class="tile-overlay">
-          <h4>Making Across Disciplines</h4><p>Biomimicry</p>
-        </div>
-      </div>
-
-      <!-- TICKLISH -->
-      <div class="project-wrapper">
-        <a href="haptic.html" class="project-tile"
-           style="background-image: url('photos_haptic/project2_img2.jpg');"></a>
-        <div class="frost-overlay"></div>
-        <div class="tile-overlay">
-          <h4>Ticklish</h4><p>Haptic Device</p>
-        </div>
-      </div>
-
-      <!-- DIGITAL TOOLS -->
-      <div class="project-wrapper">
-        <a href="digital-tool.html" class="project-tile"
-           style="background-image: url('photos_digital-tool/project2_img2.png');"></a>
-        <div class="frost-overlay"></div>
-        <div class="tile-overlay">
-          <h4>Digital Tools</h4><p>3D Modeling</p>
-        </div>
-      </div>
-
-      <!-- INFLUX -->
-      <div class="project-wrapper">
-        <a href="auxeticfacade.html" class="project-tile"
-           style="background-image: url('photos_auxeticfacade/project2_img1.jpg');"></a>
-        <div class="frost-overlay"></div>
-        <div class="tile-overlay">
-          <h4>Influx</h4><p>Transformable Façade</p>
         </div>
       </div>
 
